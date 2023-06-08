@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product List</title>
+  <style>
+    body{
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    .button:active {
+      background-color: #3e8e41;
+    }
+    .submitbutton {
+      padding: 8px 16px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 90%;
+      height: 60px;
+      font-size: xx-large;
+      position: fixed;
+      top: 80%;
+      left: 5%
+    }
+
+    .submitbutton:active {
+      background-color: #008CBA;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+    <script>
+      function redirectToCart() {
+        window.location.href = "/cart";
+      }
+    </script>
+</head>
+<body>
+  <h1>Product List</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Action</th>
+    </tr>
+    <% work.forEach(function(item) { %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.price %></td>
+      <td><%= item.stock %></td>
+      <td>
+        <form action="/add-to-cart" method="POST">
+          <input type="hidden" name="productName" value="<%= item.name %>">
+          <input type="hidden" name="price" value="<%= item.price %>">
+          <input type="hidden" name="stock" value="<%= item.stock %>">
+          <button class="button" type="submit">Add to Cart</button>
+        </form>
+      </td>
+    </tr>
+    <% }); %>
+  </table>
+  <form action="/cart" method="GET">
+    <input type="submit" value="Go to Cart" class="submitbutton" onclick="redirectToCart()">
+  </form>
+
+</body>
+</html>
