@@ -77,11 +77,15 @@ app.get("/adminsignin", function(request, response) {
             console.log("Connected correctly to admin server");
             const db = client.db(dbName);
             const col = db.collection("admin");
-            const myDoc = await col.findOne({ "firstname": username });
+            const col1 = db.collection("tickets");
+            
+            const myDoc = await col.findOne({ "fullname": username });
             if (myDoc.fullname == username && myDoc.password == password) {
                 console.clear()
                 console.log("succcesssfullly logged in");
-                response.sendFile(path.join(__dirname + "/farmeraccountID.html"))
+                const shopwork = await col1.find({}).toArray();
+                response.render('shopwork', { shopwork });
+
 
             } else {
                 console.clear()
@@ -323,8 +327,6 @@ app.get("/wheat", function(request, response) {
 });
 
 app.get('/work', (req, res) => {
-    
-    
     async function run() {
         try {
             await client.connect();
@@ -333,6 +335,27 @@ app.get('/work', (req, res) => {
             const col = db.collection("products");
             const work = await col.find({}).toArray();
             res.render('work', { work });
+           
+        } catch (err) {
+            console.log(err.stack);
+        } finally {
+            await client.close();
+        }
+    }
+
+    run().catch(console.dir);
+
+    
+});
+app.get('/shopwork', (req, res) => {
+    async function run() {
+        try {
+            await client.connect();
+            console.log("Connected correctly to server");
+            const db = client.db(dbName);
+            const col = db.collection("tickets");
+            const custlist = await col.find({}).toArray();
+            res.render('shopwork', { custlist });
            
         } catch (err) {
             console.log(err.stack);
@@ -358,6 +381,13 @@ app.post('/add-to-cart', (req, res) => {
     });
   });
 
+
+  app.get('/custdetails', (req, res) => {
+    const data = req.query.data;
+    console.lo
+    res.render('custdetails',{data:data})
+    
+  });
   
   app.get('/cart', (req, res) => {
     res.render('cart', { cart: cart });
@@ -385,6 +415,8 @@ app.post('/add-to-cart', (req, res) => {
     }
     run().catch(console.dir);
 });
+
+
 
 
   

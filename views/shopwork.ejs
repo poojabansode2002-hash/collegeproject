@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product List</title>
+  <style>
+    body{
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    .button:active {
+      background-color: #3e8e41;
+    }
+    .submitbutton {
+      padding: 8px 16px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 90%;
+      height: 60px;
+      font-size: xx-large;
+      position: fixed;
+      top: 80%;
+      left: 5%
+    }
+
+    .submitbutton:active {
+      background-color: #008CBA;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+  <script>
+    function redirectToDetails(customerId) {
+      alert(customerId)
+    }
+  </script>
+</head>
+<body>
+  <h1>customber Requests</h1>
+
+    <% shopwork.forEach(function(cust) { %>
+      <h2>Request <%=shopwork.indexOf(cust) + 1 %></h2>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+         
+        </tr>
+        <% cust.data.forEach(function(item) { %>
+        <tr>
+          <td><%= item.productName %></td>
+          <td><%= item.price %></td>
+          <td><%= item.stock %></td>
+          
+        </tr>
+        <% }); %>
+      </table>
+      <br><br><br><br><br><br><br><br><br><br>
+
+ 
+    <% }); %>
+ 
+
+</body>
+</html>
